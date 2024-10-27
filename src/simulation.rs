@@ -9,6 +9,12 @@ pub struct Simulation {
     pub bodies: Vec<Body>,
 }
 
+pub enum TimeMode {
+    Forward,
+    Pause,
+    Revind,
+}
+
 impl Simulation {
     pub fn new(num_bodies: usize) -> Self {
         let seed: u64 = 0;
