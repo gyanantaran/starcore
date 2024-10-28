@@ -7,19 +7,23 @@ pub struct Vec2 {
 }
 
 impl Vec2 {
-    pub fn new(x: f64, y: f64) -> Self { 
-        Self { x, y } 
+    pub fn new(x: f64, y: f64) -> Self {
+        Self { x, y }
     }
 
-    pub fn zero() -> Self { 
-        Self { x: 0.0, y: 0.0 } 
+    pub fn zero() -> Self {
+        Self { x: 0.0, y: 0.0 }
+    }
+
+    pub fn mag_sqrd(self: Self) -> f64 {
+        self.x * self.x + self.y * self.y
     }
 }
 
 // Direct operator implementations instead of calling helper methods
 impl ops::Add for Vec2 {
     type Output = Self;
-    
+
     fn add(self, rhs: Self) -> Self {
         Self {
             x: self.x + rhs.x,
@@ -30,7 +34,7 @@ impl ops::Add for Vec2 {
 
 impl ops::Sub for Vec2 {
     type Output = Self;
-    
+
     fn sub(self, rhs: Self) -> Self {
         Self {
             x: self.x - rhs.x,
@@ -48,7 +52,7 @@ impl ops::AddAssign for Vec2 {
 
 impl ops::Mul<Vec2> for f64 {
     type Output = Vec2;
-    
+
     fn mul(self, rhs: Vec2) -> Vec2 {
         Vec2 {
             x: self * rhs.x,
@@ -59,7 +63,7 @@ impl ops::Mul<Vec2> for f64 {
 
 impl ops::Mul<f64> for Vec2 {
     type Output = Vec2;
-    
+
     fn mul(self, rhs: f64) -> Vec2 {
         Vec2 {
             x: self.x * rhs,
