@@ -13,7 +13,12 @@ impl Body {
     }
 
     pub fn zero() -> Self {
-        Self { pos: Vec2::zero(), vel: Vec2::zero(), acc: Vec2::zero(), mas: 0.0 }
+        Self {
+            pos: Vec2::zero(),
+            vel: Vec2::zero(),
+            acc: Vec2::zero(),
+            mas: 0.0,
+        }
     }
 
     pub fn update(self: &mut Self, delta_time: f64) {

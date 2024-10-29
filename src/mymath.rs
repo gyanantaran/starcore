@@ -18,6 +18,12 @@ impl Vec2 {
     pub fn mag_sqrd(self: Self) -> f64 {
         self.x * self.x + self.y * self.y
     }
+
+    pub fn unit_vec(self: &Self) -> Vec2 {
+        let inv_mag: f64 = 1.0 * self.mag_sqrd().sqrt();
+
+        *self * inv_mag
+    }
 }
 
 // Direct operator implementations instead of calling helper methods
