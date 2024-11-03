@@ -1,4 +1,4 @@
-use crate::mymath::Vec2;
+use crate::vector::Vec2;
 
 pub struct Body {
     pub pos: Vec2,
@@ -12,17 +12,19 @@ impl Body {
         Self { pos, vel, acc, mas }
     }
 
-    pub fn zero() -> Self {
-        Self {
-            pos: Vec2::zero(),
-            vel: Vec2::zero(),
-            acc: Vec2::zero(),
-            mas: 0.0,
-        }
-    }
-
     pub fn update(self: &mut Self, delta_time: f64) {
         self.vel += delta_time * self.acc;
         self.pos += delta_time * self.vel;
+    }
+}
+
+impl Default for Body {
+    fn default() -> Self {
+        Self {
+            pos: Vec2::default(),
+            vel: Vec2::default(),
+            acc: Vec2::default(),
+            mas: 1.0,
+        }
     }
 }

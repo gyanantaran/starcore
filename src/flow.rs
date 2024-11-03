@@ -1,10 +1,10 @@
-pub enum TimeMode {
+pub enum Flow {
     Forward,
     Pause,
     Rewind,
 }
 
-impl TimeMode {
+impl Flow {
     pub fn update(self: &mut Self) {
         *self = match self {
             Self::Forward => Self::Pause,
@@ -13,11 +13,17 @@ impl TimeMode {
         }
     }
 
-    pub fn return_time_factor(self: &Self) -> f64 {
+    pub fn return_time_factor(self: &Self) -> i8 {
         match self {
-            Self::Forward => 1f64,
-            Self::Pause => 0f64,
-            Self::Rewind => -1.0f64,
+            Self::Forward => 1,
+            Self::Pause => 0,
+            Self::Rewind => -1,
         }
+    }
+}
+
+impl Default for Flow {
+    fn default() -> Self {
+        Self::Pause
     }
 }

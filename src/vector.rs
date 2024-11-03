@@ -15,18 +15,17 @@ impl Vec2 {
         Self { x: 0.0, y: 0.0 }
     }
 
-    pub fn mag_sqrd(self: Self) -> f64 {
+    pub fn mag_squared(self: Self) -> f64 {
         self.x * self.x + self.y * self.y
     }
 
     pub fn unit_vec(self: &Self) -> Vec2 {
-        let inv_mag: f64 = 1.0 * self.mag_sqrd().sqrt();
+        let inv_mag: f64 = 1.0 * self.mag_squared().sqrt();
 
         *self * inv_mag
     }
 }
 
-// Direct operator implementations instead of calling helper methods
 impl ops::Add for Vec2 {
     type Output = Self;
 
@@ -75,5 +74,11 @@ impl ops::Mul<f64> for Vec2 {
             x: self.x * rhs,
             y: self.y * rhs,
         }
+    }
+}
+
+impl Default for Vec2 {
+    fn default() -> Self {
+        Self { x: 0.0, y: 0.0 }
     }
 }

@@ -1,35 +1,4 @@
-use crate::app::App;
-use crate::mymath::Vec2;
-use eframe::egui;
-
-pub struct Painter {
-    pub zoom: f32,
-    pub translate: Vec2,
-}
-
-impl Painter {
-    pub fn render(self: &Self, app: &App) {
-        // render
-        for a_body in myapp.simulation.bodies.iter_mut() {
-            let x: f32 = self.translate.x + self.zoom * a_body.pos.x as f32;
-            let y: f32 = self.translate.y + self.zoom * a_body.pos.y as f32;
-
-            let color: egui::Color32;
-            color = egui::Color32::from_rgb(
-                (255.0 * (1.0 - a_body.acc.mag_sqrd())) as u8,
-                (255.0 * (1.0 - a_body.vel.mag_sqrd())) as u8,
-                (255.0 * (1.0 - a_body.pos.mag_sqrd())) as u8,
-            );
-
-            let my_stroke = egui::Stroke {
-                width: 0.5,
-                color: egui::Color32::WHITE,
-            };
-            self.painter
-                .circle(egui::Pos2 { x, y }, 2.0, color, my_stroke);
-        }
-    }
-}
+// TODO
 
 // #[derive(Clone, Copy)]
 // pub struct Painter<'frame> {
@@ -56,3 +25,34 @@ impl Painter {
 //     fade_to_color: Option<Color32>,
 //     opacity_factor: f32,
 // }
+//
+// let background = containers::Frame {
+//     inner_margin: epaint::Margin {
+//         left: 10.,
+//         right: 10.,
+//         top: 10.,
+//         bottom: 10.,
+//     },
+//     outer_margin: epaint::Margin {
+//         left: 10.,
+//         right: 10.,
+//         top: 10.,
+//         bottom: 10.,
+//     },
+//     rounding: Rounding {
+//         nw: 1.0,
+//         ne: 1.0,
+//         sw: 1.0,
+//         se: 1.0,
+//     },
+//     shadow: epaint::Shadow {
+//         color: Color32::YELLOW,
+//         offset: eframe::egui::Vec2 { x: 0., y: 0. },
+//         blur: 0.,
+//         spread: 0.,
+//     },
+//     fill: Color32::DARK_GRAY,
+//     stroke: Stroke::new(2.0, Color32::DARK_GRAY),
+// };
+//
+// .frame(background)
