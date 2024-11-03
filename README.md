@@ -19,3 +19,10 @@ https://github.com/user-attachments/assets/3fd38fc5-3535-4ee2-a588-04cbae2ba05b
 
 
 https://github.com/user-attachments/assets/2b7302f0-dbc5-45ed-a0c7-d00b3121b3aa
+
+
+#### Weird gravity mandala in #74cfcec59d63d4430ed448d702c0c9d71173d5aa
+
+
+https://github.com/user-attachments/assets/f9032ef4-cfdc-4e76-93c4-6513367d496c
+
