@@ -1,6 +1,7 @@
 use crate::body::Body;
 use crate::gravity::Gravity;
 use crate::initializer::Initializer;
+use crate::vector::Vec2;
 
 pub struct Simulation {
     pub bodies: Vec<Body>,
@@ -9,16 +10,35 @@ pub struct Simulation {
 
 impl Simulation {
     pub fn update(self: &mut Self, delta_time: f64) {
-        self.bodies.iter_mut().for_each(|a_body| {
-            self.gravity.apply_central(a_body);
-            a_body.update(delta_time);
-        });
+        self.update_acc();
+
+        for i in 0..self.bodies.len() {
+            self.bodies[i].update(delta_time);
+        }
+    }
+
+    pub fn update_acc(self: &mut Self) {
+        self.straightforward_acc_update();
+    }
+
+    pub fn straightforward_acc_update(self: &mut Self) {
+        let num_bodies = self.bodies.len();
+        for i in 0..num_bodies {
+            self.bodies[i].acc = Vec2::zero();
+            for j in 0..num_bodies {
+                if i == j {
+                    continue;
+                }
+                self.bodies[i].acc =
+                    self.bodies[i].acc + self.gravity.calculate(&self.bodies[i], &self.bodies[j]);
+            }
+        }
     }
 }
 
 impl Default for Simulation {
     fn default() -> Self {
-        let num_bodies: usize = 150000;
+        let num_bodies: usize = 1000;
         let mut my_initializer = Initializer::default();
         let bodies = my_initializer.init(num_bodies);
         let gravity = Gravity::default();

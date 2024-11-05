@@ -20,7 +20,7 @@ impl Vec2 {
     }
 
     pub fn unit_vec(self: &Self) -> Vec2 {
-        let inv_mag: f64 = 1.0 * self.mag_squared().sqrt();
+        let inv_mag: f64 = 1.0 / self.mag_squared().sqrt();
 
         *self * inv_mag
     }

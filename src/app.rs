@@ -54,44 +54,48 @@ impl eframe::App for App {
             self.handle_events(ctx);
             self.update();
 
-            // render
-            let window_size = ctx.input(|i| i.viewport().outer_rect);
-            let zoom = 200f32;
-            let translate = 0.5
-                * egui::Vec2 {
-                    x: window_size.unwrap().width(),
-                    y: window_size.unwrap().height(),
-                };
+            /* self.painter.render() */
+            {
+                // will be moved to painter file later
+                let zoom = 100f32;
+                let window_size = ctx.input(|i| i.viewport().outer_rect).unwrap();
+                let translate = 0.5
+                    * egui::Vec2 {
+                        x: window_size.width(),
+                        y: window_size.height(),
+                    };
 
-            ctx.request_repaint();
-            let painter = ui.painter();
-            for a_body in self.simulation.bodies.iter_mut() {
-                let x = translate.x + zoom * a_body.pos.x as f32;
-                let y = translate.y + zoom * a_body.pos.y as f32;
+                ctx.request_repaint();
+                let painter = ui.painter();
+                for a_body in self.simulation.bodies.iter_mut() {
+                    let x = translate.x + zoom * a_body.pos.x as f32;
+                    let y = translate.y + zoom * a_body.pos.y as f32;
 
-                let color: egui::Color32;
-                // color = egui::Color32::from_rgb(
-                //     (255.0 * (1.0 - a_body.acc.mag_squared())) as u8,
-                //     (255.0 * (1.0 - a_body.vel.mag_squared())) as u8,
-                //     (255.0 * (1.0 - a_body.pos.mag_squared())) as u8,
-                // ); // interesting overflow
-                color = egui::Color32::from_rgba_unmultiplied(
-                    (255.0) as u8,
-                    (255.0) as u8,
-                    (255.0) as u8,
-                    (255.0 * a_body.mas) as u8,
-                ); // interesting overflow
+                    let color: egui::Color32;
+                    // color scheme
+                    // color = egui::Color32::from_rgb(
+                    //     (255.0 * (1.0 - a_body.acc.mag_squared())) as u8,
+                    //     (255.0 * (1.0 - a_body.vel.mag_squared())) as u8,
+                    //     (255.0 * (1.0 - a_body.pos.mag_squared())) as u8,
+                    // ); // interesting overflow
+                    color = egui::Color32::from_rgba_unmultiplied(
+                        (255.0) as u8,
+                        (255.0) as u8,
+                        (255.0) as u8,
+                        (255.0 * a_body.mas) as u8,
+                    ); // interesting overflow
 
-                let my_stroke = egui::Stroke {
-                    width: 0.,
-                    color: egui::Color32::WHITE,
-                };
-                painter.circle(
-                    egui::Pos2 { x, y },
-                    a_body.mas.sqrt() as f32,
-                    color,
-                    my_stroke,
-                );
+                    let my_stroke = egui::Stroke {
+                        width: 0.,
+                        color: egui::Color32::WHITE,
+                    };
+                    painter.circle(
+                        egui::Pos2 { x, y },
+                        (05.0 / (10 as f32)) as f32,
+                        color,
+                        my_stroke,
+                    );
+                }
             }
         });
     }

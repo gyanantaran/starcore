@@ -6,19 +6,23 @@ pub struct Gravity {
 }
 
 impl Gravity {
-    pub fn apply(self: &Self, body1: &mut Body, body2: &Body) {
+    pub fn calculate(self: &Self, body1: &Body, body2: &Body) -> Vec2 {
         let separation: Vec2 = body2.pos - body1.pos;
-        let distance_sqrd: f64 = separation.mag_squared();
+        let mut distance_sqrd: f64;
+        distance_sqrd = separation.mag_squared();
+        distance_sqrd = f64::max(distance_sqrd, 0.1);
+
         let force: Vec2 =
             (self.g_const * body2.mas * body1.mas / distance_sqrd) * separation.unit_vec();
-
         let acc: Vec2 = (1.0 / body1.mas) * force;
-        body1.acc = acc;
+
+        acc
     }
 
-    pub fn apply_central(self: &Self, body: &mut Body) {
+    pub fn calculate_central(self: &Self, body: &Body) -> Vec2 {
         let central_body: Body = Body::default();
-        self.apply(body, &central_body);
+
+        self.calculate(body, &central_body)
     }
 }
 
