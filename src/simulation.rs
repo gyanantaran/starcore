@@ -9,7 +9,7 @@ pub struct Simulation {
 }
 
 impl Simulation {
-    pub fn update(self: &mut Self, delta_time: f64) {
+    pub fn update(&mut self, delta_time: f64) {
         self.update_acc();
 
         for i in 0..self.bodies.len() {
@@ -17,11 +17,11 @@ impl Simulation {
         }
     }
 
-    pub fn update_acc(self: &mut Self) {
+    pub fn update_acc(&mut self) {
         self.straightforward_acc_update();
     }
 
-    pub fn straightforward_acc_update(self: &mut Self) {
+    pub fn straightforward_acc_update(&mut self) {
         let num_bodies = self.bodies.len();
         for i in 0..num_bodies {
             self.bodies[i].acc = Vec2::zero();
@@ -38,7 +38,7 @@ impl Simulation {
 
 impl Default for Simulation {
     fn default() -> Self {
-        let num_bodies: usize = 1000;
+        let num_bodies = 2000;
         let mut my_initializer = Initializer::default();
         let bodies = my_initializer.init(num_bodies);
         let gravity = Gravity::default();

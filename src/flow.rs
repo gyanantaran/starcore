@@ -1,15 +1,14 @@
 pub enum Flow {
     Forward,
     Pause,
-    Rewind,
+    //Rewind,
 }
 
 impl Flow {
-    pub fn update(self: &mut Self) {
+    pub fn update(&mut self) {
         *self = match self {
             Self::Forward => Self::Pause,
-            Self::Pause => Self::Rewind,
-            Self::Rewind => Self::Forward,
+            Self::Pause => Self::Forward,
         }
     }
 
@@ -17,7 +16,6 @@ impl Flow {
         match self {
             Self::Forward => 1,
             Self::Pause => 0,
-            Self::Rewind => -1,
         }
     }
 }

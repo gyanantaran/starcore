@@ -12,7 +12,7 @@ impl Body {
         Self { pos, vel, acc, mas }
     }
 
-    pub fn update(self: &mut Self, delta_time: f64) {
+    pub fn update(&mut self, delta_time: f64) {
         self.vel += delta_time * self.acc;
         self.pos += delta_time * self.vel;
     }

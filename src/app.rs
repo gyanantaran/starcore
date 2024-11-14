@@ -16,16 +16,14 @@ impl App {
         "Star Core"
     }
 
-    pub fn handle_events(self: &mut Self, ctx: &egui::Context) {
+    pub fn handle_events(&mut self, ctx: &egui::Context) {
         if ctx.input(|i| i.key_pressed(egui::Key::Space)) {
             self.time_mode.update();
             self.delta_time_factor = self.time_mode.return_time_factor().into();
         }
-
-        // if (ctx.input(|i| i.)) // window resized
     }
 
-    pub fn update(self: &mut Self) {
+    pub fn update(&mut self) {
         let delta_time = self.delta_time_factor * self.delta_time;
         self.simulation.update(delta_time);
     }
@@ -33,10 +31,10 @@ impl App {
 
 impl Default for App {
     fn default() -> Self {
-        let simulation: Simulation = Simulation::default();
+        let simulation = Simulation::default();
 
         let time_mode = Flow::default();
-        let delta_time = 1.0 / 60.0;
+        let delta_time = 1.0 / 120.0;
         let delta_time_factor = 0.0; // kind of pointless(gets updated in App::handle_events)??
 
         Self {
@@ -57,8 +55,8 @@ impl eframe::App for App {
             /* self.painter.render() */
             {
                 // will be moved to painter file later
-                let zoom = 100f32;
-                let window_size = ctx.input(|i| i.viewport().outer_rect).unwrap();
+                let zoom = 300f32;
+                let window_size = ctx.input(|i: &egui::InputState| i.screen_rect());
                 let translate = 0.5
                     * egui::Vec2 {
                         x: window_size.width(),
@@ -79,22 +77,17 @@ impl eframe::App for App {
                     //     (255.0 * (1.0 - a_body.pos.mag_squared())) as u8,
                     // ); // interesting overflow
                     color = egui::Color32::from_rgba_unmultiplied(
-                        (255.0) as u8,
-                        (255.0) as u8,
-                        (255.0) as u8,
+                        255,
+                        255,
+                        255,
                         (255.0 * a_body.mas) as u8,
-                    ); // interesting overflow
+                    );
 
                     let my_stroke = egui::Stroke {
                         width: 0.,
                         color: egui::Color32::WHITE,
                     };
-                    painter.circle(
-                        egui::Pos2 { x, y },
-                        (05.0 / (10 as f32)) as f32,
-                        color,
-                        my_stroke,
-                    );
+                    painter.circle(egui::Pos2 { x, y }, (2) as f32, color, my_stroke);
                 }
             }
         });
